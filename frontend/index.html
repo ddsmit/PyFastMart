@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <h1 id="store-title">Loading...</h1>
+        <p id="store-description"></p>
+    </header>
+
+    <main>
+        <section class="filters">
+            <input type="text" id="search-input" placeholder="Search products..." aria-label="Search products">
+            <select id="sort-select" aria-label="Sort products">
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="name-desc">Name (Z-A)</option>
+                <option value="price-asc">Price (Low to High)</option>
+                <option value="price-desc">Price (High to Low)</option>
+            </select>
+            <div id="tags-container"></div>
+        </section>
+
+        <section class="products" id="products-grid" aria-label="Products">
+            <p class="loading">Loading products...</p>
+        </section>
+    </main>
+
+    <aside class="cart-popover" id="cart-popover" aria-label="Shopping cart" hidden>
+        <header class="cart-header">
+            <h2>Cart</h2>
+            <button id="cart-close" aria-label="Close cart">&times;</button>
+        </header>
+        <div class="cart-items" id="cart-items"></div>
+        <footer class="cart-footer">
+            <p class="cart-total">Total: <span id="cart-total">$0.00</span></p>
+            <button id="checkout-btn" class="btn-primary" disabled>Checkout</button>
+        </footer>
+    </aside>
+
+    <button class="cart-toggle" id="cart-toggle" aria-label="Open cart">
+        <span class="cart-icon">🛒</span>
+        <span class="cart-count" id="cart-count" hidden>0</span>
+    </button>
+
+    <div class="overlay" id="overlay" hidden></div>
+
+    <footer class="site-footer">
+        <div class="contact-info">
+            <p id="contact-email"></p>
+            <p id="contact-phone"></p>
+        </div>
+        <div class="social-links" id="social-links"></div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

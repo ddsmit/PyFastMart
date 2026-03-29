@@ -8,3 +8,16 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Environment files
+.env
+
+# IDE
+.idea/
+.vscode/
+
+# Mac
+.DS_Store
+
+# Local config
+config.toml
