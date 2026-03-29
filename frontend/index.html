@@ -29,10 +29,10 @@
         </section>
     </main>
 
-    <aside class="cart-popover" id="cart-popover" aria-label="Shopping cart" hidden>
+    <aside class="cart-popover hidden" id="cart-popover" aria-label="Shopping cart" popover>
         <header class="cart-header">
             <h2>Cart</h2>
-            <button id="cart-close" aria-label="Close cart">&times;</button>
+            <button id="cart-close" class="cart-close-btn" aria-label="Close cart" popovertarget="cart-popover" popovertargetaction="hide" >X</button>
         </header>
         <div class="cart-items" id="cart-items"></div>
         <footer class="cart-footer">
@@ -41,12 +41,12 @@
         </footer>
     </aside>
 
-    <button class="cart-toggle" id="cart-toggle" aria-label="Open cart">
+    <button class="cart-toggle" id="cart-toggle" aria-label="Open cart" popovertarget="cart-popover">
         <span class="cart-icon">🛒</span>
-        <span class="cart-count" id="cart-count" hidden>0</span>
+        <span class="cart-count hidden" id="cart-count">0</span>
     </button>
 
-    <div class="overlay" id="overlay" hidden></div>
+    <div class="overlay hidden" id="overlay"></div>
 
     <footer class="site-footer">
         <div class="contact-info">

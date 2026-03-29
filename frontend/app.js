@@ -316,14 +316,14 @@
     }
 
     function openCart() {
-        document.getElementById('cart-popover').hidden = false;
-        document.getElementById('overlay').hidden = false;
+        document.getElementById('cart-popover').classList.remove('hidden');
+        document.getElementById('overlay').classList.remove('hidden');
         document.body.style.overflow = 'hidden';
     }
 
     function closeCart() {
-        document.getElementById('cart-popover').hidden = true;
-        document.getElementById('overlay').hidden = true;
+        document.getElementById('cart-popover').classList.add('hidden');
+        document.getElementById('overlay').classList.add('hidden');
         document.body.style.overflow = '';
     }
 
@@ -370,6 +370,7 @@
     window.addToCart = addToCart;
     window.removeFromCart = removeFromCart;
     window.updateCartQuantity = updateCartQuantity;
+    window.closeCart = closeCart;
     
     init();
 })();
