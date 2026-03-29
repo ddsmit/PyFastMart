@@ -10,6 +10,7 @@ class Product:
     name: str
     description: str
     price: int
+    price_id: str
     currency: str
     image: Optional[str]
     active: bool
@@ -21,6 +22,7 @@ class Product:
             name=item.name,
             description=item.description or "",
             price=price.unit_amount or 0,
+            price_id=price.id,
             currency=price.currency,
             image=item.images[0] if item.images else None,
             active=item.active,

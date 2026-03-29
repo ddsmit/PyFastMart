@@ -244,7 +244,7 @@
         
         try {
             const items = cart.map(item => ({
-                price_id: item.id,
+                price_id: item.price_id,
                 quantity: 1,
             }));
             

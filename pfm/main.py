@@ -41,6 +41,7 @@ async def get_products():
             "name": p.name,
             "description": p.description,
             "price": p.price,
+            "price_id": p.price_id,
             "currency": p.currency,
             "image": p.image,
         }
