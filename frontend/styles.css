@@ -200,6 +200,15 @@ main {
     background: var(--color-border);
 }
 
+.btn-danger {
+    background: #ef4444;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #dc2626;
+}
+
 .cart-toggle {
     position: fixed;
     bottom: 2rem;

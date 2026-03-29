@@ -86,7 +86,9 @@
             return;
         }
         
-        grid.innerHTML = filtered.map(product => `
+        grid.innerHTML = filtered.map(product => {
+            const inCart = cart.some(item => item.id === product.id);
+            return `
             <article class="product-card" data-id="${product.id}">
                 ${product.image ? `<img class="product-image" src="${product.image}" alt="${product.name}" loading="lazy">` : ''}
                 <div class="product-info">
@@ -94,12 +96,13 @@
                     <p class="product-description">${escapeHtml(product.description)}</p>
                     <p class="product-price">${formatPrice(product.price, product.currency)}</p>
                     <div class="product-actions">
-                        <button class="btn btn-primary" onclick="addToCart('${product.id}')">Add to Cart</button>
-                        <button class="btn btn-secondary" onclick="removeFromCart('${product.id}')">Remove</button>
+                        <button class="btn ${inCart ? 'btn-danger' : 'btn-primary'}" onclick="${inCart ? `removeFromCart('${product.id}')` : `addToCart('${product.id}')`}">
+                            ${inCart ? 'Remove' : 'Add to Cart'}
+                        </button>
                     </div>
                 </div>
             </article>
-        `).join('');
+        `}).join('');
     }
 
     function filterProducts() {
@@ -183,38 +186,17 @@
         const product = products.find(p => p.id === productId);
         if (!product) return;
         
-        const existing = cart.find(item => item.id === productId);
-        if (existing) {
-            existing.quantity++;
-        } else {
-            cart.push({ ...product, quantity: 1 });
-        }
+        if (cart.some(item => item.id === productId)) return;
         
+        cart.push({ ...product });
         updateCartUI();
+        renderProducts();
     }
 
     function removeFromCart(productId) {
-        const index = cart.findIndex(item => item.id === productId);
-        if (index !== -1) {
-            if (cart[index].quantity > 1) {
-                cart[index].quantity--;
-            } else {
-                cart.splice(index, 1);
-            }
-        }
+        cart = cart.filter(item => item.id !== productId);
         updateCartUI();
-    }
-
-    function updateCartQuantity(productId, delta) {
-        const item = cart.find(i => i.id === productId);
-        if (!item) return;
-        
-        item.quantity += delta;
-        if (item.quantity <= 0) {
-            cart = cart.filter(i => i.id !== productId);
-        }
-        
-        updateCartUI();
+        renderProducts();
     }
 
     function updateCartUI() {
@@ -223,10 +205,8 @@
         const cartTotal = document.getElementById('cart-total');
         const checkoutBtn = document.getElementById('checkout-btn');
         
-        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-        
-        if (totalItems > 0) {
-            cartCount.textContent = totalItems;
+        if (cart.length > 0) {
+            cartCount.textContent = cart.length;
             cartCount.hidden = false;
             checkoutBtn.disabled = false;
         } else {
@@ -246,17 +226,12 @@
                 <div class="cart-item-info">
                     <p class="cart-item-name">${escapeHtml(item.name)}</p>
                     <p class="cart-item-price">${formatPrice(item.price, item.currency)}</p>
-                    <div class="cart-item-quantity">
-                        <button onclick="updateCartQuantity('${item.id}', -1)">-</button>
-                        <span>${item.quantity}</span>
-                        <button onclick="updateCartQuantity('${item.id}', 1)">+</button>
-                    </div>
                 </div>
                 <button class="cart-item-remove" onclick="removeFromCart('${item.id}')" aria-label="Remove item">&times;</button>
             </div>
         `).join('');
         
-        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const total = cart.reduce((sum, item) => sum + item.price, 0);
         cartTotal.textContent = formatPrice(total, cart[0]?.currency || 'usd');
     }
 
@@ -270,7 +245,7 @@
         try {
             const items = cart.map(item => ({
                 price_id: item.id,
-                quantity: item.quantity,
+                quantity: 1,
             }));
             
             const res = await fetch('/api/checkout', {
@@ -369,7 +344,6 @@
 
     window.addToCart = addToCart;
     window.removeFromCart = removeFromCart;
-    window.updateCartQuantity = updateCartQuantity;
     window.closeCart = closeCart;
     
     init();
