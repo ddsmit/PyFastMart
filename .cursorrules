@@ -1,0 +1,96 @@
+# .cursorrules - Cursor IDE Project Rules
+
+## Project Type
+
+PyFastMart is a minimal Stripe-powered e-commerce storefront built with:
+- Vanilla HTML/CSS/JavaScript (frontend)
+- FastAPI (Python backend)
+- Stripe (products & payments - single source of truth)
+- Typer CLI (`pfm` command)
+
+## Files
+
+- **pfm/**: Python backend package
+  - `__init__.py`: Package exports
+  - `__main__.py`: CLI entry point
+  - `config.py`: Configuration management
+  - `main.py`: FastAPI routes
+  - `stripe_client.py`: Stripe API wrapper
+- **frontend/**: Static frontend assets
+  - `index.html`: Main page
+  - `styles.css`: Styles with CSS variables
+  - `app.js`: Storefront logic
+- **config.toml**: Site configuration (name, contact, socials)
+- **.env**: Stripe secrets (gitignored)
+
+## Commands
+
+```bash
+uv sync              # Install dependencies
+uv run pfm manage    # Run setup wizard
+uv run pfm serve     # Start development server
+```
+
+## Styling
+
+Edit `frontend/styles.css` and modify CSS variables:
+```css
+:root {
+  --color-primary: /* accent color */
+  --color-bg: /* background */
+  --color-surface: /* cards */
+  --color-text: /* main text */
+  --color-text-muted: /* secondary text */
+  --color-border: /* borders */
+  --color-success: /* success */
+  --color-error: /* errors */
+}
+```
+
+## Configuration
+
+Site settings are in `config.toml`:
+```toml
+[site]
+name = "Store Name"
+title = "Page Title"
+description = "Store description"
+contact_email = "email@example.com"
+contact_phone = "+1234567890"
+
+[site.socials]
+twitter = "https://twitter.com/..."
+instagram = "https://instagram.com/..."
+facebook = "https://facebook.com/..."
+```
+
+Stripe keys go in `.env`:
+```
+STRIPE_PUBLISHABLE_KEY=pk_test_...
+STRIPE_SECRET_KEY=sk_test_...
+```
+
+## AI Rules
+
+### ALLOWED
+- Edit text content and copy
+- Modify CSS (colors, fonts, spacing, layouts)
+- Update config.toml values
+- Change images and media
+- Adjust UI strings and labels
+
+### FORBIDDEN
+- Modify any `.py` files (Python logic)
+- Add or remove API endpoints
+- Change Stripe integration logic
+- Add new dependencies or frameworks
+- Modify CLI commands
+- Refactor existing functionality
+- Add new features or capabilities
+
+### Architecture
+- Stripe is the ONLY backend for products and payments
+- No database - Stripe holds all product data
+- Frontend fetches products from `/api/products`
+- Checkout creates Stripe Checkout sessions at `/api/checkout`
+- Products must be active in Stripe dashboard with prices set
