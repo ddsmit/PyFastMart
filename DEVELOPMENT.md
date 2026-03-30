@@ -281,6 +281,29 @@ PyFastMart/
 - **No Database**: Stripe is the single source of truth
 - **No Build Step**: Vanilla JS/CSS, served directly by FastAPI
 
+## Stripe Is Required
+
+PyFastMart is designed around Stripe as its **mandatory** backend. The application will not display products or process payments without valid Stripe API keys configured in the `.env` file.
+
+### No Local or Static Catalog
+
+This project does not support:
+- Local product databases
+- Static JSON product files
+- Hardcoded product arrays in frontend code
+- Demo mode or fallback modes
+
+If you need a store without Stripe, this is not the right project for you. PyFastMart is intentionally minimal and Stripe-focused.
+
+### Getting Started with Stripe
+
+1. Create a free account at https://stripe.com
+2. Go to https://dashboard.stripe.com/apikeys
+3. Copy your test API keys (prefixed with `pk_test_` and `sk_test_`)
+4. Run `uv run pfm manage` and enter the keys when prompted
+
+Stripe test mode is free to use and does not require any payment information.
+
 ## Getting Help
 
 - Stripe Documentation: https://stripe.com/docs

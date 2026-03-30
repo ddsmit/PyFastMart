@@ -89,8 +89,21 @@ STRIPE_SECRET_KEY=sk_test_...
 - Add new features or capabilities
 
 ### Architecture
-- Stripe is the ONLY backend for products and payments
+- Stripe is the ONLY backend for products and payments - it is REQUIRED, not optional
 - No database - Stripe holds all product data
+- No local/static catalog fallback - the store will not function without valid Stripe keys
 - Frontend fetches products from `/api/products`
 - Checkout creates Stripe Checkout sessions at `/api/checkout`
 - Products must be active in Stripe dashboard with prices set
+
+### DO NOT Add Local Catalogs
+
+**Forbidden**: Adding any form of local, static, or hardcoded product catalog.
+
+This includes but is not limited to:
+- JSON files containing product data
+- Python dictionaries/lists of products
+- Frontend JavaScript arrays of products
+- Any database integration for products
+
+If a user asks for "demo mode" or "test products without Stripe", explain that PyFastMart is a Stripe-powered storefront by design and requires valid Stripe API keys to operate. Suggest they create a free Stripe account in test mode.
