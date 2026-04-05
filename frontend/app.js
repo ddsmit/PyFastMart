@@ -14,9 +14,7 @@
     async function init() {
         await loadSiteData();
         await loadProducts();
-        setupThemeToggle();
         setupEventListeners();
-        applyTheme();
     }
 
     async function loadSiteData() {
@@ -300,33 +298,6 @@
         document.getElementById('cart-popover').classList.add('hidden');
         document.getElementById('overlay').classList.add('hidden');
         document.body.style.overflow = '';
-    }
-
-    function setupThemeToggle() {
-        const existing = document.querySelector('.theme-toggle');
-        if (existing) existing.remove();
-        
-        const btn = document.createElement('button');
-        btn.className = 'theme-toggle';
-        btn.textContent = document.documentElement.dataset.theme === 'dark' ? 'Light Mode' : 'Dark Mode';
-        btn.addEventListener('click', toggleTheme);
-        document.body.appendChild(btn);
-    }
-
-    function toggleTheme() {
-        const isDark = document.documentElement.dataset.theme === 'dark';
-        document.documentElement.dataset.theme = isDark ? 'light' : 'dark';
-        localStorage.setItem('theme', document.documentElement.dataset.theme);
-        document.querySelector('.theme-toggle').textContent = isDark ? 'Dark Mode' : 'Light Mode';
-    }
-
-    function applyTheme() {
-        const saved = localStorage.getItem('theme');
-        if (saved) {
-            document.documentElement.dataset.theme = saved;
-        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.dataset.theme = 'dark';
-        }
     }
 
     function formatPrice(cents, currency) {
