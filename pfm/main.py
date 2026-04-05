@@ -1,4 +1,5 @@
 from pathlib import Path
+from functools import lru_cache
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -16,6 +17,10 @@ STATIC_DIR = BASE_DIR / "frontend"
 if STATIC_DIR.exists():
     app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
+@lru_cache
+def get_home():
+    with open(STATIC_DIR/'index.html', 'r') as index:
+        return index.read()
 
 def get_stripe_client() -> StripeClient:
     if not config.stripe.secret_key:
@@ -101,22 +106,9 @@ async def stripe_webhook(request: Request):
 
 @app.get("/", response_class=HTMLResponse)
 async def index():
-    index_file = STATIC_DIR / "index.html"
-    if index_file.exists():
-        return index_file.read_text()
-    return """
-    <!DOCTYPE html>
-    <html>
-    <head><title>PyFastMart</title></head>
-    <body>
-        <h1>PyFastMart</h1>
-        <p>Run 'pfm manage' to configure your store.</p>
-    </body>
-    </html>
-    """
+    return get_home()
 
 
 def run():
     import uvicorn
-
     uvicorn.run(app, host="0.0.0.0", port=8000)

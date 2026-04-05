@@ -426,6 +426,240 @@ main {
     border-color: var(--color-primary);
 }
 
+.loading-container {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+}
+
+.loading-truck-scene {
+    position: relative;
+    width: 200px;
+    height: 120px;
+    margin-bottom: 1.5rem;
+}
+
+.loading-road {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 12px;
+    background: var(--loading-road, #333);
+    border-radius: 2px;
+}
+
+.loading-road::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    right: 10px;
+    height: 2px;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--loading-road-stripe, #fff) 0px,
+        var(--loading-road-stripe, #fff) 20px,
+        transparent 20px,
+        transparent 40px
+    );
+    background-position: 10px 0;
+    animation: roadLines 0.6s linear infinite;
+}
+
+@keyframes roadLines {
+    from { transform: translateX(0); }
+    to { transform: translateX(-40px); }
+}
+
+.loading-truck {
+    position: absolute;
+    bottom: 12px;
+    animation: truckBounce 0.4s ease-in-out infinite;
+}
+
+@keyframes truckBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+.truck-body {
+    width: 70px;
+    height: 40px;
+    background: var(--loading-truck, #333);
+    border-radius: 4px;
+    position: relative;
+}
+
+.truck-cabin {
+    position: absolute;
+    right: -22px;
+    bottom: 0;
+    width: 25px;
+    height: 28px;
+    background: var(--loading-truck, #333);
+    border-radius: 4px 4px 0 0;
+}
+
+.truck-window {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    width: 14px;
+    height: 12px;
+    background: var(--loading-window, #888);
+    border-radius: 2px;
+}
+
+.truck-cargo {
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    width: 56px;
+    height: 26px;
+    background: var(--loading-cargo, #222);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    overflow: hidden;
+}
+
+.cargo-box {
+    width: 10px;
+    height: 10px;
+    background: var(--loading-box, #fff);
+    border-radius: 2px;
+    animation: boxBounce 0.4s ease-in-out infinite;
+}
+
+.cargo-box:nth-child(2) { animation-delay: 0.1s; }
+.cargo-box:nth-child(3) { animation-delay: 0.2s; }
+
+@keyframes boxBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+}
+
+.truck-wheel {
+    position: absolute;
+    bottom: -8px;
+    width: 16px;
+    height: 16px;
+    background: var(--loading-wheel, #111);
+    border-radius: 50%;
+    border: 3px solid var(--loading-wheel-rim, #666);
+}
+
+.truck-wheel.front { right: 8px; }
+.truck-wheel.back { left: 10px; }
+
+.truck-wheel::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    background: var(--loading-wheel-hub, #999);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: wheelSpin 0.3s linear infinite;
+}
+
+@keyframes wheelSpin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.loading-clouds {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.cloud {
+    position: absolute;
+    background: var(--loading-cloud, #ccc);
+    border-radius: 50px;
+    animation: cloudFloat 3s ease-in-out infinite;
+}
+
+.cloud::before, .cloud::after {
+    content: '';
+    position: absolute;
+    background: inherit;
+    border-radius: 50%;
+}
+
+.cloud-1 {
+    width: 30px;
+    height: 12px;
+    top: 10px;
+    left: 20px;
+}
+
+.cloud-1::before {
+    width: 14px;
+    height: 14px;
+    top: -7px;
+    left: 6px;
+}
+
+.cloud-2 {
+    width: 24px;
+    height: 10px;
+    top: 25px;
+    right: 30px;
+    animation-delay: 1s;
+}
+
+.cloud-2::before {
+    width: 12px;
+    height: 12px;
+    top: -6px;
+    left: 5px;
+}
+
+@keyframes cloudFloat {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+}
+
+.loading-text {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.loading-dots {
+    display: flex;
+    gap: 4px;
+}
+
+.loading-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    animation: dotPulse 1.2s ease-in-out infinite;
+}
+
+.loading-dot:nth-child(2) { animation-delay: 0.2s; }
+.loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotPulse {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1); }
+}
+
 .loading, .error {
     grid-column: 1 / -1;
     text-align: center;
@@ -435,6 +669,34 @@ main {
 
 .error {
     color: #ef4444;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --loading-road: #888;
+        --loading-road-stripe: #111;
+        --loading-truck: #ccc;
+        --loading-cargo: #aaa;
+        --loading-window: #333;
+        --loading-box: #111;
+        --loading-wheel: #ccc;
+        --loading-wheel-rim: #666;
+        --loading-wheel-hub: #333;
+        --loading-cloud: #555;
+    }
+}
+
+:root {
+    --loading-road: #333;
+    --loading-road-stripe: #fff;
+    --loading-truck: #111;
+    --loading-cargo: #222;
+    --loading-window: #888;
+    --loading-box: #fff;
+    --loading-wheel: #111;
+    --loading-wheel-rim: #666;
+    --loading-wheel-hub: #999;
+    --loading-cloud: #ccc;
 }
 
 @media (max-width: 768px) {
