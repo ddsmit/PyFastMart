@@ -15,7 +15,7 @@ PyFastMart is a minimal e-commerce storefront that uses:
 ## CRITICAL CONSTRAINTS
 
 ### Allowed Changes (Cosmetic & Content Only)
-- Editing text content (descriptions, titles, names)
+- Editing text content (descriptions, titles, names) in the index.html file. 
 - Modifying CSS styling (colors, fonts, spacing, layouts)
 - Updating configuration values in `config.toml`
 - Changing images or media assets
