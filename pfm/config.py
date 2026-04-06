@@ -3,6 +3,7 @@ import toml
 from pathlib import Path
 from dataclasses import dataclass, field
 from typing import Optional
+from functools import lru_cache
 
 
 @dataclass
@@ -74,6 +75,7 @@ class Config:
         with open(self.config_path, "w") as f:
             toml.dump(data, f)
 
+    @lru_cache
     def get_site_data(self) -> dict:
         return {
             "name": self.site.name,

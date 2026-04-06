@@ -1,27 +1,29 @@
 :root {
-    --color-bg: #ffffff;
-    --color-bg-secondary: #f5f5f5;
-    --color-text: #1a1a1a;
-    --color-text-secondary: #666666;
-    --color-primary: #2563eb;
-    --color-primary-hover: #1d4ed8;
-    --color-border: #e5e5e5;
+    --color-bg: #faf9f7;
+    --color-bg-secondary: #f0eeeb;
+    --color-text: #2d3a35;
+    --color-text-secondary: #5a6b63;
+    --color-primary: #6b9b7a;
+    --color-primary-hover: #5a8a69;
+    --color-border: #dce4de;
     --color-card: #ffffff;
-    --color-shadow: rgba(0, 0, 0, 0.1);
+    --color-shadow: rgba(45, 58, 53, 0.08);
+    --color-accent: #8fb5a0;
     --radius: 8px;
     --transition: 0.2s ease;
 }
 
 @media (prefers-color-scheme: dark) {
-    --color-bg: #0f0f0f;
-    --color-bg-secondary: #1a1a1a;
-    --color-text: #f5f5f5;
-    --color-text-secondary: #a3a3a3;
-    --color-primary: #3b82f6;
-    --color-primary-hover: #60a5fa;
-    --color-border: #333333;
-    --color-card: #1a1a1a;
-    --color-shadow: rgba(0, 0, 0, 0.3);
+    --color-bg: #1a211e;
+    --color-bg-secondary: #242d29;
+    --color-text: #e8ebe9;
+    --color-text-secondary: #a3b0a8;
+    --color-primary: #7aaa8c;
+    --color-primary-hover: #8fba9e;
+    --color-border: #3d4a44;
+    --color-card: #2a352f;
+    --color-shadow: rgba(0, 0, 0, 0.2);
+    --color-accent: #5a8a69;
 }
 
 * {
@@ -201,48 +203,52 @@ main {
 }
 
 .btn-danger {
-    background: #ef4444;
+    background: #9b7a6b;
     color: white;
 }
 
 .btn-danger:hover {
-    background: #dc2626;
+    background: #9b7a6b;
 }
 
 .cart-toggle {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
-    width: 60px;
-    height: 60px;
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
-    background: var(--color-primary);
+    background: linear-gradient(135deg, #6b9b7a 0%, #5a8a69 100%);
     color: white;
     border: none;
     cursor: pointer;
-    font-size: 1.5rem;
-    box-shadow: 0 4px 12px var(--color-shadow);
+    font-size: 1.75rem;
+    box-shadow: 0 6px 20px rgba(107, 155, 122, 0.4), 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: var(--transition);
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 100;
 }
 
 .cart-toggle:hover {
     transform: scale(1.1);
+    box-shadow: 0 8px 28px rgba(107, 155, 122, 0.5), 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .cart-count {
     position: absolute;
-    top: -5px;
-    right: -5px;
-    background: #ef4444;
+    top: -4px;
+    right: -4px;
+    background: linear-gradient(135deg, #9b7a6b 0%, #9b6b74 100%);
     color: white;
-    font-size: 0.75rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: 10px;
-    min-width: 20px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 0.2rem 0.45rem;
+    border-radius: 12px;
+    min-width: 22px;
     text-align: center;
+    box-shadow: 0 2px 6px rgba(185, 90, 80, 0.4);
 }
 
 .cart-popover {
@@ -349,11 +355,16 @@ main {
 }
 
 .cart-item-remove {
-    color: #ef4444;
+    color: #b85a50;
     background: none;
     border: none;
     cursor: pointer;
     font-size: 1.25rem;
+    transition: var(--transition);
+}
+
+.cart-item-remove:hover {
+    color: #a04840;
 }
 
 .cart-footer {
@@ -384,7 +395,7 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(45, 58, 53, 0.4);
     z-index: 999;
 }
 
@@ -448,7 +459,7 @@ main {
     left: 0;
     right: 0;
     height: 12px;
-    background: var(--loading-road, #333);
+    background: var(--color-bg-secondary);
     border-radius: 2px;
 }
 
@@ -461,8 +472,8 @@ main {
     height: 2px;
     background: repeating-linear-gradient(
         90deg,
-        var(--loading-road-stripe, #fff) 0px,
-        var(--loading-road-stripe, #fff) 20px,
+        var(--color-bg-secondary) 0px,
+        var(--color-bg-secondary) 20px,
         transparent 20px,
         transparent 40px
     );
@@ -489,7 +500,7 @@ main {
 .truck-body {
     width: 70px;
     height: 40px;
-    background: var(--loading-truck, #333);
+    background: var(--color-accent);
     border-radius: 4px;
     position: relative;
 }
@@ -500,7 +511,7 @@ main {
     bottom: 0;
     width: 25px;
     height: 28px;
-    background: var(--loading-truck, #333);
+    background: var(--color-accent);
     border-radius: 4px 4px 0 0;
 }
 
@@ -510,7 +521,7 @@ main {
     top: 4px;
     width: 14px;
     height: 12px;
-    background: var(--loading-window, #888);
+    background: var(--color-bg-secondary);
     border-radius: 2px;
 }
 
@@ -532,7 +543,7 @@ main {
 .cargo-box {
     width: 10px;
     height: 10px;
-    background: var(--loading-box, #fff);
+    background: var(--color-bg-secondary);
     border-radius: 2px;
     animation: boxBounce 0.4s ease-in-out infinite;
 }
